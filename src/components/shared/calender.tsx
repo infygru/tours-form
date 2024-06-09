@@ -23,6 +23,7 @@ export function DatePickerDemo({ setFormData, formData }: any) {
   };
 
   const thirtyDaysLater = addDays(new Date(), 30);
+  const after2months = addDays(new Date(), 90);
   React.useEffect(() => {
     setFormData({ ...formData, ["date"]: date });
   }, [date]);
@@ -53,6 +54,7 @@ export function DatePickerDemo({ setFormData, formData }: any) {
           selected={date}
           onSelect={setDate}
           initialFocus
+          toDate={after2months}
           fromDate={thirtyDaysLater}
         />
       </PopoverContent>
