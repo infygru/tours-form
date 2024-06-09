@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
@@ -26,6 +26,8 @@ const Signup = () => {
     date: "",
   });
 
+  const [country, setCountry] = useState<any>("");
+
   const [otp, setOtp] = useState<any>("");
   const [typeOtp, setTypeOtp] = useState<string>("");
   const [errors, setErrors] = useState<any>({});
@@ -48,6 +50,20 @@ const Signup = () => {
     },
     { name: "date", type: "date", placeholder: "Select a date" },
   ];
+
+  useEffect(() => {
+    const getCurrency = async () => {
+      const api = "https://api.exchangerate-api.com/v4/latest/USD";
+      const ipApi = "http://ip-api.com/json";
+
+      const ip = await fetch(ipApi);
+      const ipData = await ip.json();
+      console.log(ipData);
+
+      setCountry(ipData.countryCode);
+    };
+    getCurrency();
+  }, []);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -242,9 +258,10 @@ const Signup = () => {
                             field.name.slice(1)}
                         </label>
                         <SelectScrollable
+                          country={country}
                           formData={formData}
                           setFormData={setFormData}
-                          optios={field.options}
+                          options={field.options}
                         />
                       </div>
                     ) : (
