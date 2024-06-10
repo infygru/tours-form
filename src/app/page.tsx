@@ -54,7 +54,7 @@ const Signup = () => {
   useEffect(() => {
     const getCurrency = async () => {
       const api = "https://api.exchangerate-api.com/v4/latest/USD";
-      const ipApi = "http://ip-api.com/json";
+      const ipApi = "https://freeipapi.com/api/json";
 
       const ip = await fetch(ipApi);
       const ipData = await ip.json();
